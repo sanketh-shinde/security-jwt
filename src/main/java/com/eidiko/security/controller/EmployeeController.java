@@ -4,6 +4,9 @@ import com.eidiko.security.entity.Employee;
 import com.eidiko.security.jwt.AuthRequest;
 import com.eidiko.security.jwt.JwtUtils;
 import com.eidiko.security.service.EmployeeService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +33,18 @@ public class EmployeeController {
     private JwtUtils jwtUtils;
 
     @PostMapping("/create")
+    @Operation(
+            description = "creates a employee",
+            responses = {
+                    @ApiResponse(
+                    responseCode = "200",
+                    description = "OK"
+            ),
+                    @ApiResponse(
+                            responseCode = "201"
+                    )
+            }
+    )
     public ResponseEntity<?> createEmployee(@RequestBody Employee employee) {
         return new ResponseEntity<>(employeeService.saveEmployee(employee), HttpStatus.CREATED);
     }
