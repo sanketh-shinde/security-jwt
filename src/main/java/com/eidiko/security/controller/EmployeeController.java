@@ -49,6 +49,10 @@ public class EmployeeController {
                     @ApiResponse(
                             responseCode = "401",
                             description = "Unauthorized"
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "Internal Server Error"
                     )
             }
     )
