@@ -6,11 +6,9 @@ import com.eidiko.security.jwt.JwtUtils;
 import com.eidiko.security.service.EmployeeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -37,11 +35,20 @@ public class EmployeeController {
             description = "creates a employee",
             responses = {
                     @ApiResponse(
-                    responseCode = "200",
-                    description = "OK"
-            ),
+                            responseCode = "200",
+                            description = "Ok"
+                    ),
                     @ApiResponse(
-                            responseCode = "201"
+                            responseCode = "201",
+                            description = "Created"
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Bad Request"
+                    ),
+                    @ApiResponse(
+                            responseCode = "401",
+                            description = "Unauthorized"
                     )
             }
     )
@@ -55,13 +62,11 @@ public class EmployeeController {
     }
 
     @GetMapping("/user")
-//    @PreAuthorize("hasRole('ROLE_USER')")
     public String user() {
         return "<h1>Welcome User</h1>";
     }
 
     @GetMapping("/admin")
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String admin() {
         return "<h1>Welcome Admin</h1>";
     }
