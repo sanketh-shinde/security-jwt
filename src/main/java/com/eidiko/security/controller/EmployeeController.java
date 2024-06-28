@@ -5,6 +5,7 @@ import com.eidiko.security.jwt.AuthRequest;
 import com.eidiko.security.jwt.JwtUtils;
 import com.eidiko.security.service.EmployeeService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +31,16 @@ public class EmployeeController {
     @Autowired
     private JwtUtils jwtUtils;
 
+    @GetMapping("/home")
+    public String home() {
+        return "<h1>This is Home Page</h1>";
+    }
+
+    @GetMapping("/user")
+    public String user() {
+        return "<h1>Welcome User</h1>";
+    }
+
     @PostMapping("/create")
     @Operation(
             description = "creates a employee",
@@ -43,10 +54,6 @@ public class EmployeeController {
                             description = "Created"
                     ),
                     @ApiResponse(
-                            responseCode = "400",
-                            description = "Bad Request"
-                    ),
-                    @ApiResponse(
                             responseCode = "401",
                             description = "Unauthorized"
                     ),
@@ -58,16 +65,6 @@ public class EmployeeController {
     )
     public ResponseEntity<?> createEmployee(@RequestBody Employee employee) {
         return new ResponseEntity<>(employeeService.saveEmployee(employee), HttpStatus.CREATED);
-    }
-
-    @GetMapping("/home")
-    public String home() {
-        return "<h1>This is Home Page</h1>";
-    }
-
-    @GetMapping("/user")
-    public String user() {
-        return "<h1>Welcome User</h1>";
     }
 
     @GetMapping("/admin")
